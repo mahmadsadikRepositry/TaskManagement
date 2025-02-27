@@ -1,3 +1,4 @@
+```
 task-manager-api
  ┣ 📂 node_modules        # Installed dependencies
  ┣ 📂 src
@@ -13,3 +14,4 @@ task-manager-api
  ┣ 📜 package-lock.json   # Project Dep. Versions Details
  ┣ 📜 package.json        # Project metadata & scripts
  ┣ 📜 README.md           # Project documentation
+```
