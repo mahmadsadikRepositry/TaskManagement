@@ -3,6 +3,7 @@ import cors from 'cors'; //Enable Cross origin Resource sharing
 import morgan from 'morgan';// Logging
 import taskRouter from './routes/taskRoutes.js';
 
+
 const app = express();
 
 //Middleware
