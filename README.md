@@ -43,7 +43,7 @@ npm install
 Create a `.env` file in the project root and add the following:
 ```plaintext
 MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/taskmanager?retryWrites=true&w=majority
-PORT=5000
+PORT=3000
 ```
 **Replace `<username>` and `<password>` with your actual MongoDB credentials.**
 
