@@ -1,14 +1,3 @@
-Here is your **README.md** file in full markdown format:  
-
----
-
-## **📌 README.md for Task Manager API**  
-
-Save the following content as `README.md` in your project root directory.  
-
----
-
-```markdown
 # 🚀 Task Manager API
 
 ## 📌 Overview
@@ -37,7 +26,7 @@ task-manager-api
 
 ---
 
-## 🛠️ Setup & Installation
+### 🛠️ Setup & Installation
 
 ### **1️⃣ Clone the Repository**
 ```bash
