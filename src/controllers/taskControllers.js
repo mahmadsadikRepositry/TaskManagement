@@ -3,6 +3,7 @@ import Task from "../models/task.js";
 //Create New Task
 export const createTask = async (req, res) => {
   try {
+    console.log("req",req);
     const newTask = new Task(req.body);
     //DOCS: https://mongoosejs.com/docs/api/document.html#Document.prototype.save()
     const savedTask = await newTask.save();
