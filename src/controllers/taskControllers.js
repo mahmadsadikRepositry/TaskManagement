@@ -25,13 +25,11 @@ export const getTasks = async (req, res) => {
   }
 };
 
-
 // Get Task by ID
 export const getTaskById = async (req, res) => {
   try {
-    //DOCS: https://mongoosejs.com/docs/api/model.html#Model.findById()
-    const task = await Task.findById(req.params.id);
-    
+    //DOCS: https://mongoosejs.com/docs/api/model.html#Model.findOne()
+    const task = await Task.findOne({ task_id: req.params.task_id });
     if (!task) {
       return res.status(404).json({ message: "Task not found" });
     }
@@ -44,10 +42,14 @@ export const getTaskById = async (req, res) => {
 //Update Task
 export const updateTask = async (req, res) => {
   try {
-    //DOCS https://mongoosejs.com/docs/api/model.html#Model.findByIdAndUpdate()
-    const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    //DOCS https://mongoosejs.com/docs/api/model.html#Model.findOneAndUpdate()
+    const updatedTask = await Task.findOneAndUpdate(
+      { task_id: req.params.task_id },
+      req.body,
+      {
+        new: true, //return the modified document rather than the original
+      }
+    );
     if (!updatedTask) {
       return res.status(404).json({ message: "Task not found" });
     }
@@ -62,8 +64,10 @@ export const updateTask = async (req, res) => {
 //Delete Task
 export const deleteTask = async (req, res) => {
   try {
-    //DOCS https://mongoosejs.com/docs/api/model.html#Model.findByIdAndDelete()
-    const deletedTask = await Task.findByIdAndDelete(req.params.id);
+    //DOCS https://mongoosejs.com/docs/api/model.html#Model.findOneAndDelete()
+    const deletedTask = await Task.findOneAndDelete({
+      task_id: req.params.task_id,
+    });
     if (!deletedTask) {
       return res.status(404).json({ message: "Task not found" });
     }
