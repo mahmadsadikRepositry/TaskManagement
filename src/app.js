@@ -5,6 +5,8 @@ import taskRouter from './routes/taskRoutes.js';
 import passport from 'passport'; 
 import passportConfig from './config/passport.js'; 
 import AuthRouter from './routes/authRoutes.js';
+import FileRouter from './routes/fileRoutes.js';
+import fileRouter from './routes/fileRoutes.js';
  
 
 const app = express();
@@ -13,6 +15,9 @@ const app = express();
 app.use(express.json());
 app.use(cors())
 app.use(morgan('dev'))
+//For File Upload Module
+app.use(express.static('public'));
+app.use('/uploads', express.static('uploads'));
 
 // Call the passportConfig function and pass the 'passport' object to it
 // This sets up any authentication strategies, session handling, etc.
@@ -24,4 +29,11 @@ app.use(passport.initialize());
 //Routes
 app.use('/api/auth', AuthRouter)
 app.use('/api/tasks', taskRouter);
+
+
+//File Upload Routes
+
+// Routes
+app.use('/api/files', fileRouter);
+
 export default app;

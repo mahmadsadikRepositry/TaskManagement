@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload with Express</title>
+</head>
+<body>
+    <h2>Upload a File</h2>
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Upload</button>
+
+    <h3>Download Link:</h3>
+    <a id="downloadLink" href="#" style="display:none;" download>Click here to download the file</a>
+
+    
+    <script>
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files.length) {
+                alert('Please select a file to upload.');
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+
+            try {
+                let response = await fetch('http://localhost:3000/api/files/upload', {
+                    method: "POST",
+                    body: formData
+                });
+
+                let result = await response.json();
+                if (response.ok) {
+                    alert(result.message);
+                    displayFileContent(result.filename);
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function displayDownloadLink(filename) {
+            const downloadLink = document.getElementById("downloadLink");
+            downloadLink.href = `http://localhost:3000/uploads/${filename}`;
+            downloadLink.style.display = 'inline';  // Show the download link
+        }
+           
+    </script>
+</body>
+</html>
