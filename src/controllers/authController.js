@@ -33,3 +33,24 @@ export const register = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+// Login User - Controller function to handle user login
+export const login = async (req, res) => {
+  try {
+    // Extracting email and password from the request body
+    const { email, password } = req.body;
+
+    // Find a user in the database with the provided email
+    const user = await User.findOne({ email });
+
+    // If no user is found or the password does not match, send an invalid credentials response
+    if (!user || !(await user.comparePassword(password))) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    // If login is successful, generate a JWT token for the user and send it in the response
+    res.json({ token: generateToken(user) });
+  } catch (error) {
+    // If an error occurs, send a failure response with a 500 status code and the error message
+    res.status(500).json({ error: error.message });
+  }
+};
