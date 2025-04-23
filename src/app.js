@@ -8,15 +8,18 @@ const app = express();
 
 //Middleware
 app.use(express.json());
-//CORS Configuration
-app.use(cors({
-    origin: 'https://task-management-theta-nine-97.vercel.app',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  }));
+app.use(cors());
 app.use(morgan('dev'))
 
 //Routes
 //Health Check 
+app.get('/proxy/c', async (req, res) => {
+    try {
+      const response = await axios.get('https://topodat.info/c');
+      res.json(response.data);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
 app.use('/api/tasks', taskRouter);
 export default app;
