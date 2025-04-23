@@ -21,6 +21,12 @@ const taskSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    user_id: {
+      type: String,
+      required: true,
+      ref: 'User' // Reference user by UUID
+    }
+    
   },
   {
     timestamps: true,

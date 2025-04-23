@@ -3,7 +3,9 @@ import Task from "../models/task.js";
 //Create New Task
 export const createTask = async (req, res) => {
   try {
-    const newTask = new Task(req.body);
+    console.log("req",req);
+    const { title, description} = req.body;
+    const newTask = new Task({title,description, user_id: req.user.user_id });
     //DOCS: https://mongoosejs.com/docs/api/document.html#Document.prototype.save()
     const savedTask = await newTask.save();
     res.status(201).json(savedTask);
@@ -18,7 +20,7 @@ export const createTask = async (req, res) => {
 export const getTasks = async (req, res) => {
   try {
     //DOCS: https://mongoosejs.com/docs/api/query.html#Query.prototype.find()
-    const tasks = await Task.find();
+    const tasks = await Task.find({user_id: req.user.user_id});
     res.status(200).json(tasks);
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error", error: error.message });
