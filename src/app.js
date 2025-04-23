@@ -8,7 +8,12 @@ const app = express();
 
 //Middleware
 app.use(express.json());
-app.use(cors())
+//CORS Configuration
+app.use(cors({
+    origin: 'https://task-management-theta-nine-97.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
 app.use(morgan('dev'))
 
 //Routes
