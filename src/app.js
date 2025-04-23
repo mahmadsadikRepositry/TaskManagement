@@ -12,5 +12,11 @@ app.use(cors())
 app.use(morgan('dev'))
 
 //Routes
+//Health Check
+
+app.use('/',()=>{
+    console.log(`Welcome to the Task Management Page.`)
+});
+
 app.use('/api/tasks', taskRouter);
 export default app;
