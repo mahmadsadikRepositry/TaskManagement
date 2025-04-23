@@ -13,13 +13,14 @@ app.use(morgan('dev'))
 
 //Routes
 //Health Check 
-app.get('/proxy/c', async (req, res) => {
-    try {
-      const response = await axios.get('https://topodat.info/c');
-      res.json(response.data);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
+app.get('/health', (req, res) => {
+    res.status(200).json({
+      status: 'OK',
+      message: 'Server is running',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      environment: process.env.NODE_ENV || 'development'
+    });
   });
 app.use('/api/tasks', taskRouter);
 export default app;
