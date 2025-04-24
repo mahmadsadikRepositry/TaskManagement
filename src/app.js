@@ -13,7 +13,7 @@ const app = express();
 
 //Middleware
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 app.use(morgan('dev'))
 //For File Upload Module
 app.use(express.static('public'));
@@ -26,14 +26,23 @@ passportConfig(passport);
 // Initialize passport in the app to handle authentication requests
 app.use(passport.initialize()); 
 
+//Health Check 
+app.get('/health', (req, res) => {
+    res.status(200).json({
+      status: 'OK',
+      message: 'Server is running',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      environment: process.env.NODE_ENV || 'development'
+    });
+  });
+
 //Routes
 app.use('/api/auth', AuthRouter)
 app.use('/api/tasks', taskRouter);
 
 
 //File Upload Routes
-
-// Routes
 app.use('/api/files', fileRouter);
 
 export default app;
